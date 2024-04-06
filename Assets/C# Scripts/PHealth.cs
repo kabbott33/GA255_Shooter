@@ -44,4 +44,12 @@ public class PHealth : MonoBehaviour
 
 
     }
+
+    public void AddHealth(int amount)
+    {
+        health = Mathf.Min(maxHealth, health + amount);
+        healthText.text = "Health: " + health;
+    }
+
+
 }
