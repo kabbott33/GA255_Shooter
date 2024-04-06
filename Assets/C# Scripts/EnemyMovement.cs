@@ -63,7 +63,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 if (hit.collider.tag == "Enemy")
                 {
-                    hit.transform.GetComponent<EnemyMovement>().SetAggroed();
+                    hit.transform.parent.GetComponent<EnemyMovement>().SetAggroed();
                 }
             }
         }
