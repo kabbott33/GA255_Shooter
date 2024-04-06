@@ -98,7 +98,8 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
-        if ((Input.GetKeyDown(KeyCode.Mouse0)) && Time.time > nextFire && remainingBullets > 0 && !isReloading)
+        //&& remainingBullets > 0 && !isReloading
+        if ((Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire )
         {
             nextFire = Time.time + fireRate;
             fire.Play();
@@ -131,7 +132,7 @@ public class Shooting : MonoBehaviour
         }
     }
 
-    bool isMoving
+    public bool isMoving
     {
         get
         {
