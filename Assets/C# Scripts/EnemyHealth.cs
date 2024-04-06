@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int health = 100;
+    public AudioClip deathSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,7 @@ public class EnemyHealth : MonoBehaviour
         if (health <= 0)
         {
             Destroy(this.gameObject);
+            AudioSource.PlayClipAtPoint(deathSound, transform.position);
         }
 
     }

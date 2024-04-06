@@ -12,6 +12,8 @@ using UnityEngine.UI;
 public class Shooting : MonoBehaviour
 {
     public AudioSource fire;
+    public AudioSource reloadingSound; // Reference to the reloading sound
+
     public int maxRange = 1000;
     public int damage = 50;
     public float fireRate = 0.01f;
@@ -44,6 +46,8 @@ public class Shooting : MonoBehaviour
         if (fire == null) fire = gameObject.AddComponent<AudioSource>();
 
         UpdateAmmoUI();
+        reloadingSound.loop = true; // Set the reloading sound to loop
+        reloadingSound.Stop(); // Stop the sound initially
     }
 
     void Update()
@@ -149,6 +153,7 @@ public class Shooting : MonoBehaviour
             reloadTimer = 0;
             reloadSlider.gameObject.SetActive(false); // Hide TMP slider when reload is complete
             UpdateAmmoUI();
+            reloadingSound.Stop(); // Stop the reloading sound when reloading is complete
         }
     }
 
@@ -162,6 +167,7 @@ public class Shooting : MonoBehaviour
             reloadSlider.gameObject.SetActive(true); // Show TMP slider when reload starts
             reloadSlider.minValue = 0;
             reloadSlider.maxValue = reloadTime;
+            reloadingSound.Play(); // Start the reloading sound
 
             UpdateAmmoUI();
         }
