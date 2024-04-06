@@ -11,6 +11,8 @@ public class EnemyShooting : MonoBehaviour
 {
     private GameObject player;
     public AudioSource fire;
+
+
     public int maxRange = 1000;
     public int damage = 50;
     public float fireRate = 0.5f;

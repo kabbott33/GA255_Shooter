@@ -2879,6 +2879,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   aggroRange: 15
+  aggroSound: {fileID: 8300000, guid: 1d89213f2ba4e8744bf03046f2ee5f1d, type: 3}
+  friendlyAggroRadius: 100
 --- !u!82 &556425563710613490
 AudioSource:
   m_ObjectHideFlags: 0

@@ -20,6 +20,10 @@ public class EnemyMovement : MonoBehaviour
     private float distanceToPlayer;
 
     public float aggroRange;
+
+    public AudioClip aggroSound;
+
+    public float friendlyAggroRadius;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,10 +54,26 @@ public class EnemyMovement : MonoBehaviour
         {
             aggroed = true;
 
+            AudioSource.PlayClipAtPoint(aggroSound, transform.position);
             this.GetComponent<EnemyShooting>().Shoot();
+
+            RaycastHit[] allhits = Physics.SphereCastAll(this.transform.position, friendlyAggroRadius, this.transform.position);
+
+            foreach (RaycastHit hit in allhits)
+            {
+                if (hit.collider.tag == "Enemy")
+                {
+                    hit.transform.GetComponent<EnemyMovement>().SetAggroed();
+                }
+            }
         }
 
 
+    }
+    public void SetAggroed()
+    {
+        aggroed = true;
+        Debug.Log("AGGRO");
     }
 
 
