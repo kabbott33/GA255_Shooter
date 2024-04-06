@@ -98,8 +98,8 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
-        //&& remainingBullets > 0 && !isReloading
-        if ((Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire )
+        //
+        if ((Input.GetKeyDown(KeyCode.Mouse0)) && Time.time > nextFire && remainingBullets > 0 && !isReloading)
         {
             nextFire = Time.time + fireRate;
             fire.Play();

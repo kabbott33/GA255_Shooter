@@ -1163,11 +1163,11 @@ PrefabInstance:
       objectReference: {fileID: 1567328272}
     - target: {fileID: 3602552782897692180, guid: 80df1d79b83dcfa419693061897bafed, type: 3}
       propertyPath: fireRate
-      value: 0.05
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3602552782897692180, guid: 80df1d79b83dcfa419693061897bafed, type: 3}
       propertyPath: reloadTime
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3602552782897692180, guid: 80df1d79b83dcfa419693061897bafed, type: 3}
       propertyPath: reloadSlider
