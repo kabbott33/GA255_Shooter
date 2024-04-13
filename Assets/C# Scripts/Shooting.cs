@@ -20,6 +20,7 @@ public class Shooting : MonoBehaviour
     public float nextFire = 0.0f;
     public GameObject bulletHole;
     public TextMeshProUGUI ammoText;
+    public TextMeshProUGUI totalAmmoText; // New field for displaying total ammo count
     public Slider reloadSlider;
     public float reloadTime = 3.0f;
     private int remainingBullets = 6;
@@ -40,6 +41,9 @@ public class Shooting : MonoBehaviour
     private float currentAccuracy;
     public bool isAiming;
 
+    // Total ammo count variable
+    public int totalAmmo = 30;
+
     void Start()
     {
         fire = this.GetComponent<AudioSource>();
@@ -48,6 +52,9 @@ public class Shooting : MonoBehaviour
         UpdateAmmoUI();
         reloadingSound.loop = true; // Set the reloading sound to loop
         reloadingSound.Stop(); // Stop the sound initially
+
+        // Initialize the total ammo UI
+        UpdateTotalAmmoUI();
     }
 
     void Update()
@@ -58,10 +65,10 @@ public class Shooting : MonoBehaviour
         }
 
 
-            Shoot();
-            ADS();
-            Accuracy();
-            Reload();
+        Shoot();
+        ADS();
+        Accuracy();
+        Reload();
 
     }
 
@@ -149,19 +156,22 @@ public class Shooting : MonoBehaviour
         reloadSlider.value = reloadTime - reloadTimer; // Update TMP slider value
         if (reloadTimer <= 0)
         {
-            remainingBullets = 6;
+            int bulletsToReload = Mathf.Min(6 - remainingBullets, totalAmmo); // Calculate how many bullets can be reloaded
+            remainingBullets += bulletsToReload;
+            totalAmmo -= bulletsToReload; // Deduct from total ammo
             isReloading = false;
             reloadTimer = 0;
             reloadSlider.gameObject.SetActive(false); // Hide TMP slider when reload is complete
             UpdateAmmoUI();
             reloadingSound.Stop(); // Stop the reloading sound when reloading is complete
+            UpdateTotalAmmoUI(); // Update total ammo UI after reload
         }
     }
 
     public void Reload()
     {
         // Method to reload the gun
-        if (Input.GetKeyDown(KeyCode.R) && remainingBullets < 6)
+        if (Input.GetKeyDown(KeyCode.R) && remainingBullets < 6 && totalAmmo > 0)
         {
             isReloading = true;
             reloadTimer = reloadTime;
@@ -178,6 +188,18 @@ public class Shooting : MonoBehaviour
     {
         // Update ammo count UI
         ammoText.text = "Ammo: " + remainingBullets + "/6";
+    }
+
+    private void UpdateTotalAmmoUI()
+    {
+        // Update total ammo count UI
+        totalAmmoText.text = "Total Ammo: " + totalAmmo;
+    }
+
+    public void AddAmmo(int amount)
+    {
+        totalAmmo += amount;
+        UpdateTotalAmmoUI();
     }
 
 }
