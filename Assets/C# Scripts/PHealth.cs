@@ -11,16 +11,29 @@ public class PHealth : MonoBehaviour
     public TextMeshProUGUI healthText;
     public float invincibilityTimer = 3.0f;
     public bool canTakeDamage = true;
-    // Start is called before the first frame update
+
+    // Variables for fall damage
+    public float fallDamageThresholdVelocity = -10f; // Threshold velocity in the negative Y direction to trigger fall damage
+    public int maxFallDamage = 50; // Maximum fall damage
+
+    private Rigidbody rb;
+    private bool isGrounded = false;
+    private bool hasFallen = false;
+
+    public float fallVelocity;
+
+    public float fallDamageMultiplier = 12f;
+
     void Start()
     {
-
+        healthText.text = "Health: " + health;
+        rb = GetComponent<Rigidbody>();
     }
 
     public void Hit(int dmg)
     {
         health -= dmg;
-        healthText.text = "health:" + health;
+        healthText.text = "Health: " + health;
         if (health <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -29,20 +42,10 @@ public class PHealth : MonoBehaviour
         }
     }
 
-   
-    // Update is called once per frame
-    void Update()
-    {
-        
-
-    }
     IEnumerator InvincibilityCo()
     {
         yield return new WaitForSeconds(invincibilityTimer);
         canTakeDamage = true;
-
-
-
     }
 
     public void AddHealth(int amount)
@@ -51,5 +54,38 @@ public class PHealth : MonoBehaviour
         healthText.text = "Health: " + health;
     }
 
+    private void FixedUpdate()
+    {
+        if (!isGrounded && rb.velocity.y < fallDamageThresholdVelocity)
+        {
+            hasFallen = true;
+            fallVelocity = Mathf.Abs(rb.velocity.y);
+        }
+    }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+            if (hasFallen)
+            {
+
+                float fallDamageCalculation = (fallVelocity + fallDamageThresholdVelocity)*fallDamageMultiplier;
+                int fallDamage = Mathf.RoundToInt(fallDamageCalculation);
+                //fallDamage = Mathf.Clamp(fallDamage, 0, maxFallDamage);
+                Debug.Log("fall damage:" + fallDamage);
+                Hit(fallDamage);
+                hasFallen = false;
+            }
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
 }

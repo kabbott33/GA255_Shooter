@@ -130,6 +130,10 @@ public class Shooting : MonoBehaviour
                     hit.transform.parent.GetComponent<EnemyHealth>().Bodyshot(damage);
                     Debug.Log("body");
                 }
+                if (hit.collider.CompareTag("Generator"))
+                {
+                    hit.transform.GetComponent<Generator>().Bodyshot(damage);
+                }
                 else
                 {
                     GameObject bH = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
