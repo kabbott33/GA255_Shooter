@@ -39,7 +39,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        healthText.text = "health:" + health;
+        healthText.text = "Health:" + health;
         if(health <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
         if(health >= maxHealth)
         {
             health = maxHealth;        }
-        healthText.text = "health:" + health;
+        healthText.text = "Health:" + health;
     }
 
     IEnumerator InvincibilityCo()

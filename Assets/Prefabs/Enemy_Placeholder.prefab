@@ -2819,6 +2819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  deathSound: {fileID: 8300000, guid: d2beda01788166e4e8b43923a74fab0b, type: 3}
 --- !u!114 &6484538085916636886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2838,6 +2839,8 @@ MonoBehaviour:
   nextFire: 0
   accuracy: 40
   firepoint: {fileID: 4492552491112406102}
+  tracerDuration: 0.2
+  particleMaterial: {fileID: 0}
 --- !u!195 &6272667797626788955
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2876,6 +2879,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   aggroRange: 15
+  aggroSound: {fileID: 8300000, guid: 1d89213f2ba4e8744bf03046f2ee5f1d, type: 3}
+  friendlyAggroRadius: 100
 --- !u!82 &556425563710613490
 AudioSource:
   m_ObjectHideFlags: 0
