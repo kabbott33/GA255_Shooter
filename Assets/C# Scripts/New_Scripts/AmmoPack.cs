@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class AmmoPack : MonoBehaviour
 {
-    public int amount = 20;
+    public int ammoAmount = 20;
+    public int grenadeAmount = 3;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+           GrenadeThrower playerGrenades = GameObject.Find("GrenadeThrowPoint").GetComponent<GrenadeThrower>();
             Shooting playerAmmo = GameObject.Find("PlayerCamera").GetComponent<Shooting>();
-            if (playerAmmo != null)
+            if (playerAmmo&&playerGrenades != null)
             {
-                playerAmmo.AddAmmo(amount);
+                playerAmmo.AddAmmo(ammoAmount);
+                playerGrenades.AddGrenades(grenadeAmount);
                 Destroy(gameObject);
             }
+
+           
         }
     }
+
+
 }
