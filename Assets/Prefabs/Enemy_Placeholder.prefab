@@ -2038,7 +2038,7 @@ MonoBehaviour:
   fire: {fileID: 0}
   maxRange: 1000
   damage: 20
-  fireRate: 0.01
+  fireRate: 0.5
   nextFire: 0
   accuracy: 40
   firepoint: {fileID: 4492552491112406102}
