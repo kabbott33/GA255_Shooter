@@ -49,8 +49,16 @@ public class EnemyMovement : MonoBehaviour
             }
 
             navMeshAgent.destination = patrolPaths[patrolPathIndex].position;
+        }/*
+        Vector3 aim = player.transform.position - this.transform.position;
+        Raycast hit;
+        if (distanceToPlayer <= aggroRange || aggroed)
+        {
+            if (Physics.Raycast(this.transform.position, aim, out hit, aggroRange)) 
         }
-        if (distanceToPlayer <= aggroRange || aggroed) 
+        */
+          
+        if (distanceToPlayer<aggroRange)
         {
             aggroed = true;
 
