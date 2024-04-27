@@ -28,6 +28,12 @@ public class GrenadeThrower : MonoBehaviour
         UpdateGrenadeCountUI();
     }
 
+    public void AddGrenades(int amount)
+    {
+        grenadeCount = grenadeCount + amount;
+        grenadeCountText.text = "Grenades: " + grenadeCount;
+    }
+
     void UpdateGrenadeCountUI()
     {
         // Update UI to display remaining grenades
