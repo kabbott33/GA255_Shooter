@@ -60,11 +60,24 @@ public class EnemyMovement : MonoBehaviour
           
         if (distanceToPlayer<aggroRange)
         {
-            aggroed = true;
+            
+            Vector3 aim = player.transform.position - this.transform.position;
+            RaycastHit hit;
+            if (Physics.Raycast(this.transform.position, aim, out hit, aggroRange*3))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    aggroed = true;
 
-            AudioSource.PlayClipAtPoint(aggroSound, transform.position);
-            this.GetComponent<EnemyShooting>().Shoot();
+                    AudioSource.PlayClipAtPoint(aggroSound, transform.position);
+                    this.GetComponent<EnemyShooting>().Shoot();
+                }
+            }
 
+
+
+
+            /*
             RaycastHit[] allhits = Physics.SphereCastAll(this.transform.position, friendlyAggroRadius, this.transform.position);
 
             foreach (RaycastHit hit in allhits)
@@ -74,6 +87,7 @@ public class EnemyMovement : MonoBehaviour
                     hit.transform.parent.GetComponent<EnemyMovement>().SetAggroed();
                 }
             }
+            */
         }
 
 

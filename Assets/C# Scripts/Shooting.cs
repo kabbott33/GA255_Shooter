@@ -135,7 +135,7 @@ public class Shooting : MonoBehaviour
                     hit.transform.GetComponent<Generator>().Bodyshot(damage);
                 }
                 
-                if (!((hit.collider.CompareTag("Body"))|| (hit.collider.CompareTag("Head"))))
+                if (!((hit.collider.CompareTag("Body"))|| (hit.collider.CompareTag("Head"))||(hit.collider.CompareTag("Generator"))))
                 {
                     GameObject bH = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
                     bH.transform.position += bH.transform.forward / 1000;

@@ -15,6 +15,9 @@ public class Generator : MonoBehaviour
     public bool controlsTurret;
     public GameObject turret;
 
+    public bool controlsBoss;
+    public GameObject boss;
+
 
    // private bool isOpening;
 
@@ -45,7 +48,18 @@ public class Generator : MonoBehaviour
                 StartCoroutine(OpenDoor());
                // this.GetComponent<MeshRenderer>().enabled = false;
             }
+            if (controlsBoss)
+            {
+                DamageBoss();
+            }
+     
         }
+    }
+
+    public void DamageBoss()
+    {
+        boss.GetComponent<BossHealth>().ControlPanelDestroyed();
+        Destroy(this.gameObject);
     }
 
     public void DestroyTurret()
