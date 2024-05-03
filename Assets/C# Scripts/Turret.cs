@@ -37,7 +37,7 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.Find("FirstPersonController");
         fire = this.GetComponent<AudioSource>();
         if (fire == null) fire = gameObject.AddComponent<AudioSource>();
         //firepoint = this.transform.GetComponent
@@ -66,14 +66,15 @@ public class Turret : MonoBehaviour
             nextFire = Time.time + fireRate;
             AlternateFirepoint();
             fire.Play();
-            Vector3 aim = player.transform.position - this.transform.position;
+            Vector3 aim = player.transform.position - gun.transform.position;
             aim = Quaternion.AngleAxis(Random.Range(0, accuracy), UnityEngine.Vector3.up) * aim;
-            aim = Quaternion.AngleAxis(Random.Range(0, 360), this.transform.forward) * aim;
+            aim = Quaternion.AngleAxis(Random.Range(0, 360), gun.transform.forward) * aim;
             RaycastHit hit;
             DrawLine(firepoint.transform.position, aim, Color.white, maxRange, tracerDuration);
-            if (Physics.Raycast(this.transform.position, aim, out hit, maxRange))
+            if (Physics.Raycast(gun.transform.position, aim, out hit, maxRange))
             {
                 //        if ((hit.collider.CompareTag("Head")) || hit.collider.CompareTag("Body"))
+                Debug.Log(hit.collider.name);
 
                 //        {
                 if (hit.collider.CompareTag("Player"))
