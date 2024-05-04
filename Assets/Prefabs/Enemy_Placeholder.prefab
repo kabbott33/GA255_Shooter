@@ -2672,7 +2672,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8270177868924113611}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Arms/Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

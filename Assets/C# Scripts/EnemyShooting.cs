@@ -21,6 +21,8 @@ public class EnemyShooting : MonoBehaviour
     public GameObject firepoint;
     public float tracerDuration = 0.2f;
 
+    private float flightDistance;
+
     public Material particleMaterial;
     // Start is called before the first frame update
     void Start()
@@ -44,16 +46,18 @@ public class EnemyShooting : MonoBehaviour
 
             nextFire = Time.time + fireRate;
             fire.Play();
-            Vector3 aim = player.transform.position - this.transform.position;
+            firepoint.transform.LookAt(player.transform.position);
+            Vector3 aim = player.transform.position - firepoint.transform.position;
             aim = Quaternion.AngleAxis(Random.Range(0, accuracy), UnityEngine.Vector3.up) * aim;
-            aim = Quaternion.AngleAxis(Random.Range(0, 360), this.transform.forward) * aim;
+            aim = Quaternion.AngleAxis(Random.Range(0, 360), firepoint.transform.forward) * aim;
             RaycastHit hit;
-            DrawLine(firepoint.transform.position, aim, Color.white, maxRange, tracerDuration);
-            if (Physics.Raycast(this.transform.position, aim, out hit, maxRange))
+ 
+            if (Physics.Raycast(firepoint.transform.position, aim, out hit, maxRange))
             {
                 //        if ((hit.collider.CompareTag("Head")) || hit.collider.CompareTag("Body"))
 
                 //        {
+                flightDistance = hit.distance;
                 if (hit.collider.CompareTag("Player"))
                 {
                     Debug.Log("PLAYERHIT");
@@ -61,15 +65,16 @@ public class EnemyShooting : MonoBehaviour
                     //hit.transform.GetComponent<PHealth>().Hit(damage);
 
                 }
+                DrawLine(firepoint.transform.position, aim, Color.white, flightDistance, tracerDuration);
             }
         }
     }
-    void DrawLine(Vector3 start, Vector3 direction, Color color, float maxDistance, float duration = 0.2f)
+    void DrawLine(Vector3 start, Vector3 direction, Color color, float flightDistance, float duration = 0.2f)
     {
         GameObject myLine = new GameObject();
         myLine.transform.position = start;
 
-        Vector3 end = start + direction.normalized * maxDistance;
+        Vector3 end = start + direction.normalized * flightDistance;
 
         LineRenderer lr = myLine.AddComponent<LineRenderer>();
         lr.material = new Material(Shader.Find("Standard"));
