@@ -124,7 +124,7 @@ MonoBehaviour:
   explosionDamage: 100
   explosionSound: {fileID: 8300000, guid: 0894d587d5536974dabd3e00947b99ed, type: 3}
   initialForce: 15
-  explosionPrefab: {fileID: 7481893986104369176, guid: 9e3434f7456ca744f9d00ab39f54b9e3, type: 3}
+  explosionPrefab: {fileID: 4487477318986611297, guid: e08b5517d0fcc8442be2e73fae955b9d, type: 3}
 --- !u!54 &6067339756906491827
 Rigidbody:
   m_ObjectHideFlags: 0
