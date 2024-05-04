@@ -10736,6 +10736,7 @@ MonoBehaviour:
   - {fileID: 5971164383318295993}
   - {fileID: 7831799288802195671}
   particleMaterial: {fileID: 0}
+  muzzleFlash: {fileID: 4297790270333692926, guid: 8c9ec2d6fe69a9e4c9e6c446d0c17d61, type: 3}
 --- !u!82 &2176903533311729311
 AudioSource:
   m_ObjectHideFlags: 0

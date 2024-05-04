@@ -36,6 +36,10 @@ public class Turret : MonoBehaviour
     private int firepointIndex = 0;
 
     public Material particleMaterial;
+
+    public GameObject muzzleFlash;
+
+    public Material lineRendererMat;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,6 +73,7 @@ public class Turret : MonoBehaviour
             AlternateFirepoint();
             firepoint.LookAt(player.transform.position);
             fire.Play();
+            GameObject mF = Instantiate(muzzleFlash, firepoint.transform.position, firepoint.transform.rotation);
             Vector3 aim = player.transform.position - firepoint.transform.position;
             aim = Quaternion.AngleAxis(Random.Range(0, accuracy), UnityEngine.Vector3.up) * aim;
             aim = Quaternion.AngleAxis(Random.Range(0, 360), firepoint.transform.forward) * aim;
@@ -100,11 +105,14 @@ public class Turret : MonoBehaviour
         Vector3 end = start + direction.normalized * flightDistance;
 
         LineRenderer lr = myLine.AddComponent<LineRenderer>();
-        lr.material = new Material(Shader.Find("Standard"));
+        //lr.material = new Material(Shader.Find("Standard"));
+        lr.material = lineRendererMat;
+
+
         lr.startColor = color;
         lr.endColor = color;
-        lr.startWidth = 0.1f;
-        lr.endWidth = 0.1f;
+        lr.startWidth = 0.01f;
+        lr.endWidth = 0.03f;
         lr.SetPosition(0, start);
         lr.SetPosition(1, end);
 
