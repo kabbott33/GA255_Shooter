@@ -28,6 +28,8 @@ public class Turret : MonoBehaviour
     public float aggroDistance;
     public bool isAggroed;
 
+    private float flightDistance;
+
 
     public List<Transform> firepoints;
 
@@ -65,17 +67,19 @@ public class Turret : MonoBehaviour
 
             nextFire = Time.time + fireRate;
             AlternateFirepoint();
+            firepoint.LookAt(player.transform.position);
             fire.Play();
-            Vector3 aim = player.transform.position - gun.transform.position;
+            Vector3 aim = player.transform.position - firepoint.transform.position;
             aim = Quaternion.AngleAxis(Random.Range(0, accuracy), UnityEngine.Vector3.up) * aim;
-            aim = Quaternion.AngleAxis(Random.Range(0, 360), gun.transform.forward) * aim;
+            aim = Quaternion.AngleAxis(Random.Range(0, 360), firepoint.transform.forward) * aim;
             RaycastHit hit;
-            DrawLine(firepoint.transform.position, aim, Color.white, maxRange, tracerDuration);
-            if (Physics.Raycast(gun.transform.position, aim, out hit, maxRange))
+            
+            if (Physics.Raycast(firepoint.transform.position, aim, out hit, maxRange))
             {
                 //        if ((hit.collider.CompareTag("Head")) || hit.collider.CompareTag("Body"))
                 Debug.Log(hit.collider.name);
-
+                flightDistance = hit.distance;
+                
                 //        {
                 if (hit.collider.CompareTag("Player"))
                 {
@@ -84,15 +88,16 @@ public class Turret : MonoBehaviour
                     //hit.transform.GetComponent<PHealth>().Hit(damage);
 
                 }
+                DrawLine(firepoint.transform.position, aim, Color.white, flightDistance, tracerDuration);
             }
         }
     }
-    void DrawLine(Vector3 start, Vector3 direction, Color color, float maxDistance, float duration = 0.2f)
+    void DrawLine(Vector3 start, Vector3 direction, Color color, float flightDistance, float duration = 0.2f)
     {
         GameObject myLine = new GameObject();
         myLine.transform.position = start;
 
-        Vector3 end = start + direction.normalized * maxDistance;
+        Vector3 end = start + direction.normalized * flightDistance;
 
         LineRenderer lr = myLine.AddComponent<LineRenderer>();
         lr.material = new Material(Shader.Find("Standard"));
@@ -103,7 +108,9 @@ public class Turret : MonoBehaviour
         lr.SetPosition(0, start);
         lr.SetPosition(1, end);
 
+        Debug.Log(flightDistance);
         GameObject.Destroy(myLine, duration);
+
     }
 
     public void AlternateFirepoint()
