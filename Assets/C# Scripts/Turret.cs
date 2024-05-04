@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 using System.Drawing;
 using Unity.VisualScripting;
 using Color = UnityEngine.Color;
+using UnityEngine.WSA;
 
 public class Turret : MonoBehaviour
 {
@@ -40,10 +41,12 @@ public class Turret : MonoBehaviour
     public GameObject muzzleFlash;
 
     public Material lineRendererMat;
+
+    public bool activated = false;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("FirstPersonController");
+        player = GameObject.Find("First Personw Controller");
         fire = this.GetComponent<AudioSource>();
         if (fire == null) fire = gameObject.AddComponent<AudioSource>();
         //firepoint = this.transform.GetComponent
@@ -53,12 +56,12 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(this.transform.position, player.transform.position) < aggroDistance)
+        if ((Vector3.Distance(this.transform.position, player.transform.position) < aggroDistance) && (activated))
         {
             isAggroed = true;
         }
 
-        if (isAggroed) 
+        if ((isAggroed) && activated) 
         {
             Shoot();
         }
@@ -130,5 +133,11 @@ public class Turret : MonoBehaviour
         }
 
         firepoint = firepoints[firepointIndex];
+    }
+
+    public void Activate()
+    {
+        Debug.Log("activate");
+        activated = true;
     }
 }

@@ -126,6 +126,7 @@ public class Shooting : MonoBehaviour
           
             if (Physics.Raycast(this.transform.position, aim, out hit, maxRange))
             {
+                Debug.Log(hit.collider.name);
                 if (hit.collider.CompareTag("Head"))
                 {
                     hit.transform.parent.GetComponent<EnemyHealth>().Headshot(damage);

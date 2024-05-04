@@ -18,6 +18,10 @@ public class Generator : MonoBehaviour
     public bool controlsBoss;
     public GameObject boss;
 
+    public bool startsFight;
+    public GameObject[] allTurrets;
+
+    public AudioSource fightStartSound;
 
    // private bool isOpening;
 
@@ -25,7 +29,8 @@ public class Generator : MonoBehaviour
 
     void Start()
     {
-        
+        fightStartSound = this.GetComponent<AudioSource>();
+        if (fightStartSound == null) fightStartSound = gameObject.AddComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -52,6 +57,11 @@ public class Generator : MonoBehaviour
             {
                 DamageBoss();
             }
+            if (startsFight) 
+            {
+                fightStartSound.Play();
+                Invoke("StartFight", 5f);
+            }
      
         }
     }
@@ -65,7 +75,11 @@ public class Generator : MonoBehaviour
     public void DestroyTurret()
     {
         Destroy(turret);
-        Destroy(this.gameObject);
+        if (!startsFight) 
+        {
+            Destroy(this.gameObject);
+        }
+        
     }
 
     private IEnumerator OpenDoor()
@@ -90,4 +104,14 @@ public class Generator : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    private void StartFight()
+    {
+
+        Debug.Log("startfight");
+        foreach (GameObject turret in  allTurrets)
+        {
+            turret.GetComponent<Turret>().Activate();
+        }
+        Destroy(this.gameObject) ;
+    }
 }
