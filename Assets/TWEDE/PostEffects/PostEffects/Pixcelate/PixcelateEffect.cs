@@ -5,10 +5,10 @@ public class PixcelateEffect : MonoBehaviour {
 
 	public bool on = false;
 
-	[Range(1, 200)]
+	[Range(1, 1000)]
 	public int horizontal = 20;
 
-	[Range(1, 200)]
+	[Range(1, 1000)]
 	public int vertical = 20;
 
 	public Material material;

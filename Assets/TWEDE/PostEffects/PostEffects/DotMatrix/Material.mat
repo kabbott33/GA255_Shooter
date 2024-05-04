@@ -29,7 +29,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Amount: 30
+    - _Amount: 200
     - _Blur: 1
     - _Glossiness: 0.5
     - _Metallic: 0
