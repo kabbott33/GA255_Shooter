@@ -43,6 +43,8 @@ public class Turret : MonoBehaviour
     public Material lineRendererMat;
 
     public bool activated = false;
+
+    public bool bossFightTurret;
     // Start is called before the first frame update
     void Start()
     {
