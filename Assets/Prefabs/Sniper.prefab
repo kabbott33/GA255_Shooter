@@ -475,7 +475,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5793220470329654940}
-  - {fileID: 4319136977764968409}
   m_Father: {fileID: 3232694146889682929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2515041048058419819
@@ -502,7 +501,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2515041048058419819}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.70885247, z: -0, w: 0.7053569}
+  m_LocalRotation: {x: 0, y: -0.70885086, z: 0, w: 0.7053584}
   m_LocalPosition: {x: 65.32, y: -3.35, z: -80.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1016,37 +1015,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &3476158587185065728
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4319136977764968409}
-  m_Layer: 0
-  m_Name: PatrolPath2
-  m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4319136977764968409
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3476158587185065728}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.025743484, y: 1.1399999, z: -4.943763}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3811034043184997855}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3480977550257432973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,7 +1764,7 @@ Transform:
   m_GameObject: {fileID: 4611587342694195506}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.025743484, y: 0.8299999, z: 4.5762367}
+  m_LocalPosition: {x: 0.34, y: 0.8299999, z: 2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2601,7 +2569,9 @@ MonoBehaviour:
   accuracy: 4
   firepoint: {fileID: 4082444982127569459}
   tracerDuration: 0.2
+  muzzleFlash: {fileID: 4297790270333692926, guid: 8c9ec2d6fe69a9e4c9e6c446d0c17d61, type: 3}
   particleMaterial: {fileID: 0}
+  lineRendererMat: {fileID: 2100000, guid: 64124c57836474f45b178c99f84d99a6, type: 2}
 --- !u!195 &1111700974147534295
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2609,7 +2579,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6972689453840614310}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -2636,7 +2606,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54512ade8f3daef4b8a05a03ba35aeca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolPaths: []
+  patrolPaths:
+  - {fileID: 5793220470329654940}
   aggroRange: 50
   aggroSound: {fileID: 8300000, guid: 1d89213f2ba4e8744bf03046f2ee5f1d, type: 3}
   friendlyAggroRadius: 100
