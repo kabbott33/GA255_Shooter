@@ -31,8 +31,8 @@ Material:
     m_Floats:
     - _Glossiness: 0.5
     - _Metallic: 0
-    - _Radius: 0.007
-    - _Segments: 0.015
+    - _Radius: 0.002
+    - _Segments: 0.0141
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
