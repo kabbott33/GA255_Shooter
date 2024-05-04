@@ -28,16 +28,22 @@ public class Turret : MonoBehaviour
     public float aggroDistance;
     public bool isAggroed;
 
+    private float flightDistance;
+
 
     public List<Transform> firepoints;
 
     private int firepointIndex = 0;
 
     public Material particleMaterial;
+
+    public GameObject muzzleFlash;
+
+    public Material lineRendererMat;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.Find("FirstPersonController");
         fire = this.GetComponent<AudioSource>();
         if (fire == null) fire = gameObject.AddComponent<AudioSource>();
         //firepoint = this.transform.GetComponent
@@ -65,16 +71,20 @@ public class Turret : MonoBehaviour
 
             nextFire = Time.time + fireRate;
             AlternateFirepoint();
+            firepoint.LookAt(player.transform.position);
             fire.Play();
-            Vector3 aim = player.transform.position - this.transform.position;
+            GameObject mF = Instantiate(muzzleFlash, firepoint.transform.position, firepoint.transform.rotation);
+            Vector3 aim = player.transform.position - firepoint.transform.position;
             aim = Quaternion.AngleAxis(Random.Range(0, accuracy), UnityEngine.Vector3.up) * aim;
-            aim = Quaternion.AngleAxis(Random.Range(0, 360), this.transform.forward) * aim;
+            aim = Quaternion.AngleAxis(Random.Range(0, 360), firepoint.transform.forward) * aim;
             RaycastHit hit;
-            DrawLine(firepoint.transform.position, aim, Color.white, maxRange, tracerDuration);
-            if (Physics.Raycast(this.transform.position, aim, out hit, maxRange))
+            
+            if (Physics.Raycast(firepoint.transform.position, aim, out hit, maxRange))
             {
                 //        if ((hit.collider.CompareTag("Head")) || hit.collider.CompareTag("Body"))
-
+                Debug.Log(hit.collider.name);
+                flightDistance = hit.distance;
+                
                 //        {
                 if (hit.collider.CompareTag("Player"))
                 {
@@ -83,26 +93,32 @@ public class Turret : MonoBehaviour
                     //hit.transform.GetComponent<PHealth>().Hit(damage);
 
                 }
+                DrawLine(firepoint.transform.position, aim, Color.white, flightDistance, tracerDuration);
             }
         }
     }
-    void DrawLine(Vector3 start, Vector3 direction, Color color, float maxDistance, float duration = 0.2f)
+    void DrawLine(Vector3 start, Vector3 direction, Color color, float flightDistance, float duration = 0.2f)
     {
         GameObject myLine = new GameObject();
         myLine.transform.position = start;
 
-        Vector3 end = start + direction.normalized * maxDistance;
+        Vector3 end = start + direction.normalized * flightDistance;
 
         LineRenderer lr = myLine.AddComponent<LineRenderer>();
-        lr.material = new Material(Shader.Find("Standard"));
+        //lr.material = new Material(Shader.Find("Standard"));
+        lr.material = lineRendererMat;
+
+
         lr.startColor = color;
         lr.endColor = color;
-        lr.startWidth = 0.1f;
-        lr.endWidth = 0.1f;
+        lr.startWidth = 0.01f;
+        lr.endWidth = 0.03f;
         lr.SetPosition(0, start);
         lr.SetPosition(1, end);
 
+        Debug.Log(flightDistance);
         GameObject.Destroy(myLine, duration);
+
     }
 
     public void AlternateFirepoint()
