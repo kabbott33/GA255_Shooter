@@ -2563,7 +2563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fire: {fileID: 0}
   maxRange: 1000
-  damage: 30
+  damage: 10
   fireRate: 2
   nextFire: 0
   accuracy: 4

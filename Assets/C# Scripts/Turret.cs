@@ -45,6 +45,8 @@ public class Turret : MonoBehaviour
     public bool activated = false;
 
     public bool bossFightTurret;
+
+    public bool hasSeenPlayer = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,12 +55,17 @@ public class Turret : MonoBehaviour
         if (fire == null) fire = gameObject.AddComponent<AudioSource>();
         //firepoint = this.transform.GetComponent
 
+        if (!(bossFightTurret))
+        {
+            activated = true;
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ((Vector3.Distance(this.transform.position, player.transform.position) < aggroDistance) && (activated))
+        if ((Vector3.Distance(this.transform.position, player.transform.position) < aggroDistance) && (activated) && hasSeenPlayer)
         {
             isAggroed = true;
         }
@@ -67,6 +74,8 @@ public class Turret : MonoBehaviour
         {
             Shoot();
         }
+
+        Sight();
     }
     public void Shoot()
     {
@@ -142,4 +151,27 @@ public class Turret : MonoBehaviour
         Debug.Log("activate");
         activated = true;
     }
+
+
+    public void Sight()
+    {
+        if (!(hasSeenPlayer)) 
+        {
+            Vector3 sight = player.transform.position - this.transform.position;
+            RaycastHit hit;
+            if (Physics.Raycast(this.transform.position, sight, out hit, maxRange))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    hasSeenPlayer = true;
+                }
+            }
+        }
+
+    }
+
+     
+
+
+
 }
