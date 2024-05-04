@@ -636,6 +636,8 @@ MonoBehaviour:
   midInaccuracy: 2
   maxInaccuracy: 6
   isAiming: 0
+  muzzleFlash: {fileID: 4297790270333692926, guid: 8c9ec2d6fe69a9e4c9e6c446d0c17d61, type: 3}
+  firePoint: {fileID: 1913285202206543571}
   totalAmmo: 30
 --- !u!82 &1461935702207497034
 AudioSource:
@@ -1358,6 +1360,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1913285202206543571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3814687869523600112}
+  m_Layer: 2
+  m_Name: firepoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3814687869523600112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913285202206543571}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.113, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7634005333747978355}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1947888138957937853
 GameObject:
   m_ObjectHideFlags: 0
@@ -3833,6 +3866,7 @@ Transform:
   - {fileID: 4159584393961930387}
   - {fileID: 4715371353496962255}
   - {fileID: 3565633605838573210}
+  - {fileID: 3814687869523600112}
   m_Father: {fileID: 8022893472258752483}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!82 &6163977596312027068

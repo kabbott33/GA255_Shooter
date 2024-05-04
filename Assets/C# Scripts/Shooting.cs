@@ -25,6 +25,7 @@ public class Shooting : MonoBehaviour
     private float reloadTimer = 0.0f;
     public bool isReloading = false;
 
+
     //ADS positions
     public GameObject gun;
     public Transform hipFireTransform;
@@ -38,6 +39,9 @@ public class Shooting : MonoBehaviour
     public float maxInaccuracy;
     private float currentAccuracy;
     public bool isAiming;
+
+    public GameObject muzzleFlash;
+    public GameObject firePoint;
 
     // Total ammo count variable
     public int totalAmmo = 30;
@@ -110,12 +114,16 @@ public class Shooting : MonoBehaviour
             fire.Play();
             remainingBullets--;
 
+            
+            //Quaternion fireDirection = Quaternion.Euler();
+            GameObject mF = Instantiate(muzzleFlash, firePoint.transform.position, this.transform.rotation);
             UpdateAmmoUI();
 
             Vector3 aim = this.transform.forward;
             aim = Quaternion.AngleAxis(Random.Range(0, currentAccuracy), UnityEngine.Vector3.up) * aim;
             aim = Quaternion.AngleAxis(Random.Range(0, 360), this.transform.forward) * aim;
             RaycastHit hit;
+          
             if (Physics.Raycast(this.transform.position, aim, out hit, maxRange))
             {
                 if (hit.collider.CompareTag("Head"))
