@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/AlannahScene.unity
+    guid: 3d0d16c776cd16b48a65d58a34d1422f
   m_configObjects: {}
