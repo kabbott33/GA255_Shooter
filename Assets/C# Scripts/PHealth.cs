@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PHealth : MonoBehaviour
 {
+    public static PHealth instance;
     public int maxHealth = 100;
     public int health = 100;
     public TextMeshProUGUI healthText;
@@ -24,8 +25,22 @@ public class PHealth : MonoBehaviour
 
     public float fallDamageMultiplier = 12f;
 
+
+ //respawn stuff
+    public bool reachedTower;
+    public bool reachedCompound;
+    public bool reachedPit;
+    public bool reachedBossfight;
+
+    public GameObject deathScreen;
+
+    private Transform respawnPoint;
+    //public Transform hell;
+
+
     void Start()
     {
+        instance = this;
         healthText.text = "Health: " + health;
         rb = GetComponent<Rigidbody>();
     }
@@ -36,9 +51,7 @@ public class PHealth : MonoBehaviour
         healthText.text = "Health: " + health;
         if (health <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            canTakeDamage = false;
-            StartCoroutine(InvincibilityCo());
+            StartCoroutine(Respawn());
         }
     }
 
@@ -80,6 +93,41 @@ public class PHealth : MonoBehaviour
             }
         }
     }
+
+    IEnumerator Respawn()
+    {
+        health = 100;
+        healthText.text = "Health: " + health;
+        this.transform.position = GameObject.Find("Hell").transform.position;
+        deathScreen.SetActive(true);
+        yield return new WaitForSeconds(3);
+
+        respawnPoint = GameObject.Find("StartSpawn").transform;
+        if (reachedTower)
+        {
+            respawnPoint = GameObject.Find("TowerSpawn").transform;
+        }
+        if (reachedCompound)
+        {
+            respawnPoint = GameObject.Find("CompoundSpawn").transform;
+        }
+        if (reachedPit)
+        {
+            respawnPoint = GameObject.Find("PrePitSpawn").transform;
+        }
+        if (reachedBossfight)
+        {
+            respawnPoint = GameObject.Find("PreBossSpawn").transform;
+        }
+        this.transform.position = respawnPoint.position;
+        this.transform.rotation = respawnPoint.rotation;
+        deathScreen.SetActive (false);
+    }
+    /*
+         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            canTakeDamage = false;
+            StartCoroutine(InvincibilityCo());
+    */
 
     void OnCollisionExit(Collision collision)
     {
