@@ -46,6 +46,9 @@ public class Shooting : MonoBehaviour
     // Total ammo count variable
     public int totalAmmo = 30;
 
+    //generator spark
+    public GameObject sparkPrefab;
+
     void Start()
     {
         fire = this.GetComponent<AudioSource>();
@@ -139,11 +142,19 @@ public class Shooting : MonoBehaviour
                 }
                 if (hit.collider.CompareTag("Generator"))
                 {
-                    hit.transform.GetComponent<Generator>().Bodyshot(damage);
+                    if (hit.collider.GetComponent<Generator>().blinking)
+                    {
+                        hit.transform.GetComponent<Generator>().Bodyshot(damage);
+                        GameObject spark = Instantiate(sparkPrefab, hit.point, Quaternion.LookRotation(hit.normal));
+                        spark.transform.position += spark.transform.forward / 1000;
+                    }
+
+
                 }
                 
                 if (!((hit.collider.CompareTag("Body"))|| (hit.collider.CompareTag("Head"))||(hit.collider.CompareTag("Generator"))))
                 {
+                   
                     GameObject bH = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
                     bH.transform.position += bH.transform.forward / 1000;
                 }

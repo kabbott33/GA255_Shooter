@@ -31,6 +31,7 @@ public class Turret : MonoBehaviour
 
     private float flightDistance;
 
+    public AudioSource gunFire;
 
     public List<Transform> firepoints;
 
@@ -50,9 +51,8 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gunFire = GetComponent<AudioSource>();
         player = GameObject.Find("First Personw Controller");
-        fire = this.GetComponent<AudioSource>();
-        if (fire == null) fire = gameObject.AddComponent<AudioSource>();
         //firepoint = this.transform.GetComponent
 
         if (!(bossFightTurret))
@@ -86,7 +86,7 @@ public class Turret : MonoBehaviour
             nextFire = Time.time + fireRate;
             AlternateFirepoint();
             firepoint.LookAt(player.transform.position);
-            fire.Play();
+            gunFire.Play();
             GameObject mF = Instantiate(muzzleFlash, firepoint.transform.position, firepoint.transform.rotation);
             Vector3 aim = player.transform.position - firepoint.transform.position;
             aim = Quaternion.AngleAxis(Random.Range(0, accuracy), UnityEngine.Vector3.up) * aim;
@@ -104,6 +104,13 @@ public class Turret : MonoBehaviour
                 {
                     Debug.Log("PLAYERHIT");
                     player.GetComponent<PHealth>().Hit(damage);
+                    //hit.transform.GetComponent<PHealth>().Hit(damage);
+
+                }
+                if (hit.collider.CompareTag("Generator"))
+                {
+                    
+                    hit.collider.GetComponent<Generator>().Bodyshot(damage);
                     //hit.transform.GetComponent<PHealth>().Hit(damage);
 
                 }

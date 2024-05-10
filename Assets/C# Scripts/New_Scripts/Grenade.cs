@@ -24,6 +24,8 @@ public class Grenade : MonoBehaviour
 
         // Invoke the Explode method after the explosion timer
         Invoke("Explode", explosionTimer);
+
+
     }
 
     void Explode()
@@ -38,6 +40,10 @@ public class Grenade : MonoBehaviour
             if (hit.collider.tag == "Body")
             {
                 hit.transform.parent.GetComponent<EnemyHealth>().Bodyshot(explosionDamage);
+            }
+            if (hit.collider.tag == "Generator")
+            {
+                hit.collider.GetComponent<Generator>().Bodyshot(explosionDamage);
             }
         }
 
