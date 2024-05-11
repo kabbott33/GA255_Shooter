@@ -114,7 +114,7 @@ public class Turret : MonoBehaviour
                     //hit.transform.GetComponent<PHealth>().Hit(damage);
 
                 }
-                DrawLine(firepoint.transform.position, aim, Color.white, flightDistance, tracerDuration);
+                DrawLine(firepoint.transform.position, aim, Color.yellow, flightDistance, tracerDuration);
             }
         }
     }

@@ -7,6 +7,8 @@ public class BossHealth : MonoBehaviour
 
     private int destroyedControlPanels = 0;
     public int health = 3;
+    public GameObject door;
+    public GameObject explosion;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +21,9 @@ public class BossHealth : MonoBehaviour
     {
         if (destroyedControlPanels == health)
         {
+
             Destroy(this.gameObject);
+            Destroy(door.gameObject);
         }
     }
 

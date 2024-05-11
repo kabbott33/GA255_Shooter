@@ -16,6 +16,7 @@ public class ControlPanelSparks : MonoBehaviour
 
     public void DestroySelf()
     {
+
         Destroy(this.gameObject);
     }
 

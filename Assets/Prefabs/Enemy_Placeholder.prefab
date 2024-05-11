@@ -2040,7 +2040,7 @@ MonoBehaviour:
   damage: 5
   fireRate: 0.5
   nextFire: 0
-  accuracy: 15
+  accuracy: 8
   firepoint: {fileID: 4492552491112406102}
   tracerDuration: 0.2
   muzzleFlash: {fileID: 4297790270333692926, guid: 8c9ec2d6fe69a9e4c9e6c446d0c17d61, type: 3}
@@ -2105,7 +2105,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 3.03
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -2142,7 +2142,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.498
       inSlope: 0
       outSlope: 0
       tangentMode: 0
